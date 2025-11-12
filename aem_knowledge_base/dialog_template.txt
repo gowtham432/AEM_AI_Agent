@@ -1,0 +1,236 @@
+m<?xml version="1.0" encoding="UTF-8"?>
+
+<jcr:root
+    xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+    xmlns:cq="http://www.day.com/jcr/cq/1.0"
+    xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Article Index"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container">
+
+        <items jcr:primaryType="nt:unstructured">
+
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                maximized="{Boolean}true">
+
+                <items jcr:primaryType="nt:unstructured">
+
+                    <!-- ==================== Properties Tab ==================== -->
+                    <properties
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Properties"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
+
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                margin="{Boolean}true">
+
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+
+                                        <items jcr:primaryType="nt:unstructured">
+
+                                            <headlinetext
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                                component="rte-textfield"
+                                                fieldLabel="Heading :"
+                                                name="./headline"
+                                                removeSingleParagraphContainer="{Boolean}true"
+                                                required="{Boolean}true"
+                                                useFixedInlineToolbar="{Boolean}true" />
+
+                                            <text
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                                fieldLabel="Body Text:"
+                                                name="./text"
+                                                useFixedInlineToolbar="{Boolean}true" />
+
+                                            <viewType
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                fieldLabel="View Type:"
+                                                name="./viewType"
+                                                required="{Boolean}true"
+                                                value="filterView">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <filterView
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Filter view"
+                                                        value="filterView" />
+                                                    <standardView
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Standard view"
+                                                        value="standardView" />
+                                                </items>
+                                            </viewType>
+
+                                            <tagFolderPath
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                fieldLabel="Select to search specific folder(s) :"
+                                                name="./tagFolders"
+                                                required="{Boolean}true">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <advice
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Advice Folder"
+                                                        value="/content/dam/content-fragments/advice" />
+                                                    <video
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Video Folder"
+                                                        value="/content/dam/content-fragments/video/index-hub" />
+                                                </items>
+                                            </tagFolderPath>
+
+                                            <tags
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/common/tagspicker"
+                                                allowBulkEdit="{Boolean}true"
+                                                allowCreate="{Boolean}true"
+                                                cq-msm-lockable="cq:tags"
+                                                eaemmaxtags="2"
+                                                fieldLabel="Select default tags to display on initial page load :*"
+                                                fieldDescription="Select a Tag that is at least one level deep but not more than four"
+                                                name="./cqtags"
+                                                required="{Boolean}true" />
+
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </properties>
+
+                    <!-- ==================== Table Data Tab ==================== -->
+                    <tableData
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Table Data"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
+
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                margin="{Boolean}true">
+
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+
+                                        <items jcr:primaryType="nt:unstructured">
+
+                                            <caption
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="Caption"
+                                                name="./caption"
+                                                required="{Boolean}true" />
+
+                                            <tablecolumnheaders
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                composite="{Boolean}true"
+                                                fieldLabel="Table Column Headers:"
+                                                required="{Boolean}true"
+                                                useFixedInlineToolbar="{Boolean}true"
+                                                wrapperClass="foundation-toggleable data-table"
+                                                validation="table-multifield-min-max">
+                                                <granite:data
+                                                    jcr:primaryType="nt:unstructured"
+                                                    min="2"
+                                                    max="6" />
+                                                <field
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                    name="./columns">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <headlinetext
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                                            fieldLabel="Column Heading"
+                                                            name="./headline"
+                                                            component="rte-textfield"
+                                                            required="{Boolean}true"
+                                                            value="Default Column Heading"
+                                                            useFixedInlineToolbar="{Boolean}true"
+                                                            removeSingleParagraphContainer="{Boolean}true" />
+                                                    </items>
+                                                </field>
+                                            </tablecolumnheaders>
+
+                                            <tablerows
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                composite="{Boolean}true"
+                                                fieldLabel="Table Rows:"
+                                                required="{Boolean}true"
+                                                useFixedInlineToolbar="{Boolean}true"
+                                                wrapperClass="foundation-toggleable data-table"
+                                                validation="table-multifield-min-max">
+                                                <granite:data
+                                                    jcr:primaryType="nt:unstructured"
+                                                    rowMin="1" />
+                                                <field
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                    name="./rows">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <row
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="Row:"
+                                                            useFixedInlineToolbar="{Boolean}true"
+                                                            wrapperClass="foundation-toggleable"
+                                                            validation="table-multifield-min-max"
+                                                            granite:class="data-table-row">
+                                                            <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./row">
+                                                                <items jcr:primaryType="nt:unstructured">
+                                                                    <text
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                                                        fieldLabel="Cell Text:"
+                                                                        name="./text"
+                                                                        useFixedInlineToolbar="{Boolean}true"
+                                                                        granite:class="data-table-row-cells"
+                                                                        validation="table-num-cells-match-columns" />
+                                                                </items>
+                                                            </field>
+                                                        </row>
+                                                    </items>
+                                                </field>
+                                            </tablerows>
+
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </tableData>
+
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>

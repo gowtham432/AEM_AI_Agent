@@ -1,0 +1,59 @@
+// JavaScript for Multifield Validation in AEM Dialogs
+// This script validates a Coral Multifield component based on minimum and maximum item constraints.
+// It ensures that the number of items in a multifield stays within defined min/max limits
+// and provides an appropriate validation message when conditions are not met.
+
+(function ($, document) {
+    "use strict";
+
+    // Wait for the AEM Granite UI (Foundation) content to fully load before running the validation logic.
+    $(document).on("foundation-contentloaded", function () {
+
+        // Register a custom validation handler with the Foundation Validation Registry.
+        // The validator is triggered for elements having data-foundation-validation starting with "multifield-min-max".
+        $(window).adaptTo("foundation-registry").register("foundation.validation.validator", {
+            
+            // Target selector for the custom validation
+            selector: "[data-foundation-validation^='multifield-min-max']",
+            
+            // Validation logic implementation
+            validate: function (el) {
+                
+                // Retrieve minimum and maximum item limits from data attributes on the multifield node
+                let min = parseInt(el.getAttribute("data-min"));
+                let max = parseInt(el.getAttribute("data-max"));
+                
+                // Reference to the Coral multifield HTML element
+                const multifield = el;
+                
+                // Get all the current multifield items (each repeated group of fields)
+                const items = multifield.items;
+                if (!items) return; // Exit if there are no items or the multifield is undefined
+                
+                // ---------- MAXIMUM LIMIT HANDLING ----------
+                // If a max limit is defined and exceeded, automatically remove extra items.
+                if (!isNaN(max) && items.length > max) {
+                    const extraCount = items.length - max;
+
+                    // Loop through the number of extra items and remove them silently (from the end)
+                    for (let i = 0; i < extraCount; i++) {
+                        const lastItem = items[items.length - 1];
+                        if (lastItem) {
+                            lastItem.remove(); // Removes the last multifield item
+                        }
+                    }
+                }
+
+                // ---------- MINIMUM LIMIT VALIDATION ----------
+                // If the number of items is less than the minimum required,
+                // return a validation message to be displayed in the dialog UI.
+                if (!isNaN(min) && items.length < min) {
+                    return "Minimum allowed items is " + min;
+                }
+
+                // No return statement if validation passes (AEM treats undefined as valid)
+            }
+        });
+    });
+
+})(jQuery, jQuery(document));

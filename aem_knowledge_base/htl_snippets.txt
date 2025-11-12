@@ -1,0 +1,98 @@
+<!-- example_component.html -->
+<div data-sly-use.example="com.usaa.grp.ent.cms.aem.common.core.models.components.example.ExampleComponent">
+
+    <!-- Component wrapper with dynamic id -->
+    <section id="${example.id}" class="example-component">
+
+        <!-- Simple scalar (select) -->
+        <p class="view-type">View Type: ${example.viewType}</p>
+
+        <!-- Same value via raw properties (alternative access) -->
+        <p class="view-type-alt">View Type (properties): ${properties.viewType}</p>
+
+        <!-- Tags (array) rendered as list -->
+        <ul class="tags" data-sly-list.tag="${example.tags}">
+            <li>${tag}</li>
+        </ul>
+
+        <!-- Tags joined -->
+        <p class="tags-inline">${example.tags @ join=', '}</p>
+
+        <!-- Date (Calendar) formatted -->
+        <p class="date">${example.date.time @ date='MM/dd/yyyy HH:mm'}</p>
+
+        <!-- Rich text (child node: headline/text) -->
+        <div class="headline" data-sly-test.headline="${example.headlineText}">
+            ${headline @ context='html'}
+        </div>
+
+        <!-- Multifield items -->
+        <div class="fragments" data-sly-list.item="${example.fragmentItems}">
+            <div class="fragment-item"
+                 data-fragment-path="${item.fragmentPath}"
+                 data-highlight="${item.highlightColumn}">
+                <span class="fragment-path">${item.fragmentPath}</span>
+                <span class="fragment-highlight">${item.highlightColumn}</span>
+            </div>
+        </div>
+
+        <!-- Example conditional rendering -->
+        <div data-sly-test.editMode="${wcmmode.edit}">
+            <em>Authoring placeholder (visible only in edit mode)</em>
+        </div>
+
+        <!-- Safe fallback example -->
+        <p>First Tag Or Default: ${example.tags[0] @ context='text', default='No tag'}</p>
+
+        <!-- Content Fragment example (valid data-sly-use usage) -->
+        <sly data-sly-test.hasFrag="${example.fragmentItems && example.fragmentItems.size > 0}">
+            <sly data-sly-set.firstFragmentPath="${example.fragmentItems[0].fragmentPath}" />
+            <sly data-sly-use.cfMap="${example.createCfMapFromPath(firstFragmentPath, request, resource, example.currentPage, false)}" />
+            <div class="cf-elements" data-sly-list.ce="${cfMap}">
+                <div class="cf-element">
+                    <strong>${ce.key}:</strong> ${ce.value @ context='html'}
+                </div>
+            </div>
+        </sly>
+
+        <!-- i18n example -->
+        <p>${'example.component.label.viewType' @ i18n}</p>
+
+        <!-- Raw valueMap access -->
+        <div class="raw-props">
+            <span data-sly-test.v="${resource.valueMap['viewType']}">Raw ViewType: ${v}</span>
+        </div>
+
+        <!-- Template (data-sly-template) example -->
+        <sly data-sly-template.listItem="${item}">
+            <li data-path="${item.fragmentPath}">${item.fragmentPath} (${item.highlightColumn})</li>
+        </sly>
+
+        <!-- Call template for each multifield item -->
+        <ul data-sly-list.fi="${example.fragmentItems}">
+            <sly data-sly-call="${listItem @ item=fi}" />
+        </ul>
+
+        <!-- Call template directly with single object -->
+        <sly data-sly-set.first="${example.fragmentItems[0]}" />
+        <div data-sly-call="${listItem @ item=first}"></div>
+
+        <!-- Include child resource directly -->
+        <div class="headline-raw" data-sly-resource="headline"></div>
+
+        <!-- Create parsys dynamically -->
+        <sly data-sly-resource="${'dynamicParsys' @ resourceType='wcm/foundation/components/parsys'}"></sly>
+
+        <!-- Include with selector & disabled WCM mode -->
+        <sly data-sly-resource="${'details' @ selectors='print', wcmmode='disabled'}"></sly>
+
+        <!-- Conditional rendering -->
+        <div data-sly-test.edit="${wcmmode.edit}">Author mode helper</div>
+
+        <!-- Repeat example -->
+        <sly data-sly-repeat.row="${example.fragmentItems}">
+            <span>${row.fragmentPath}</span>
+        </sly>
+
+    </section>
+</div>

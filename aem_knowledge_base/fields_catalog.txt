@@ -1,0 +1,370 @@
+RTE Text Fields - Resource Type - cq/gui/components/authoring/dialog/richtext
+-----------------------------------------------------------------------------
+<headlinetext
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+    component="rte-textfield"
+    fieldLabel="Heading :"
+    name="./headline"
+    removeSingleParagraphContainer="{Boolean}true"
+    required="{Boolean}true"
+    useFixedInlineToolbar="{Boolean}true"/>
+
+Java Reference:
+---------------
+@ChildResource
+private Resource headline;
+
+Drop down Field - Resource Type - granite/ui/components/coral/foundation/form/select
+------------------------------------------------------------------------------------
+<viewType
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+    fieldLabel="View Type:"
+    name="./viewType"
+    required="{Boolean}true"
+    value="filterView">
+    <items jcr:primaryType="nt:unstructured">
+        <filterView
+            jcr:primaryType="nt:unstructured"
+            text="Filter view"
+            value="filterView"/>
+        <standardView
+            jcr:primaryType="nt:unstructured"
+            text="Standard view"
+            value="standardView"/>
+    </items>
+</viewType>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String viewType;
+
+Tags picker - Resource Type - cq/gui/components/common/tagspicker
+------------------------------------------------------------------
+<tags
+    cq:showOnCreate="{Boolean}true"
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="cq/gui/components/common/tagspicker"
+    allowBulkEdit="{Boolean}true"
+    allowCreate="{Boolean}true"
+    cq-msm-lockable="cq:tags"
+    eaemmaxtags="2"
+    fieldLabel="Select default tags to display on initial page load :*"
+    fieldDescription="Select a Tag that is at least one level deep but not more than four"
+    name="./cqtags"
+    required="{Boolean}true"/>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String viewType;
+
+
+Text Field - Resource Type - granite/ui/components/coral/foundation/form/textfield
+----------------------------------------------------------------------------------
+<text
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+    fieldDescription=""
+    fieldLabel=""
+    name="./text"
+    required="{Boolean}true"/>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String caption;
+
+
+Text Area - Resource Type - granite/ui/components/coral/foundation/form/textarea
+----------------------------------------------------------------------------------
+<textarea
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+    fieldDescription=""
+    fieldLabel=""
+    name="./textarea"
+    required="{Boolean}true"/>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String textarea;
+
+Password - Resource Type - granite/ui/components/coral/foundation/form/password
+----------------------------------------------------------------------------------
+<caption
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/password"
+    fieldDescription=""
+    fieldLabel=""
+    name="./password"
+    required="{Boolean}true"/>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String password;
+
+
+Number Field - Resource Type - granite/ui/components/coral/foundation/form/numberfield
+--------------------------------------------------------------------------------------
+<number
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+    fieldDescription=""
+    fieldLabel=""
+    name="./number"
+    required="{Boolean}true"/>
+
+Java Reference:
+---------------
+@ValueMapValue
+private String number;
+
+Email Field - Resource Type - granite/ui/components/coral/foundation/form/textfield
+-----------------------------------------------------------------------------------
+<email
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/email"
+    fieldLabel="Email Address"
+    name="./email"
+    required="{Boolean}true"
+    emptyText="Enter email address"
+    validation="email"
+    maxlength="{Long}254"/>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String email;
+
+Date Picker - Resource Type - granite/ui/components/coral/foundation/form/datepicker
+------------------------------------------------------------------------------------
+<endDateAndTime
+    cq:showOnCreate="{Boolean}true"
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+    displayedFormat="MM/DD/YYYY HH:mm"
+    fieldLabel="Timer end:"
+    name="./date"
+    type="datetime"
+    required="{Boolean}true">
+    <granite:data
+        jcr:primaryType="nt:unstructured"
+        metaType="datepicker"
+        typeHint="Date"/>
+</endDateAndTime>
+
+Java Reference:
+--------------
+@ValueMapValue
+private Calendar date; 
+
+Color Field - Resource Type - granite/ui/components/coral/foundation/form/colorfield
+------------------------------------------------------------------------------------
+
+<colorField
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/colorfield"
+    fieldLabel="Color"
+    name="./color"
+    showDefaultColors="{Boolean}false"
+    showProperties="{Boolean}true"
+    showSwatches="{Boolean}true">
+    <items jcr:primaryType="nt:unstructured">
+        <color1
+            jcr:primaryType="nt:unstructured"
+            value="#FF0000"/>
+        <color2
+            jcr:primaryType="nt:unstructured"
+            value="#00FF00"/>
+        <color3
+            jcr:primaryType="nt:unstructured"
+            value="#0000FF"/>
+    </items>
+</colorField>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String color;
+
+Check Box - Resource Type - granite/ui/components/coral/foundation/form/checkbox
+-------------------------------------------------------------------------------
+<checkbox
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+    fieldDescription=""
+    fieldLabel=""
+    name="./checkbox"
+    required="{Boolean}true"/>
+
+Java Reference:
+---------------
+@ValueMapValue
+private String checkbox;
+
+Path Field - Resource Type - granite/ui/components/coral/foundation/form/pathfield
+-----------------------------------------------------------------------------------
+<fragmentPath
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+    fieldLabel="Compare XF Path:"
+    name="./fragmentPath"
+    required="{Boolean}true"
+    rootPath="/content/experience-fragments/compare"/>
+
+Java Reference:
+--------------
+@ValueMapValue
+private String fragmentPath;
+
+Multifield without min and max- Resource Type - granite/ui/components/coral/foundation/form/multifield
+-----------------------------------------------------------------------------------
+<simpleMultifield
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+    composite="{Boolean}true"
+    fieldLabel="Items">
+    <field
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        name="./items">
+        <items jcr:primaryType="nt:unstructured">
+            <title
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                fieldLabel="Title"
+                name="./title"/>
+            <description
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                fieldLabel="Description"
+                name="./description"/>
+        </items>
+    </field>
+</simpleMultifield>
+
+Java Reference:
+---------------
+    @ChildResource(name = "fragmentInfo")
+    private Resource fragmentInfoContainer;
+
+    private final List<FragmentInfoItem> fragmentItems = new ArrayList<>();
+
+    @PostConstruct
+    protected void init() {
+        // Build composite multifield items
+        if (fragmentInfoContainer != null) {
+            for (Resource item : fragmentInfoContainer.getChildren()) {
+                ValueMap vm = item.getValueMap();
+                fragmentItems.add(new FragmentInfoItem(
+                        //add fields to class by using vm.get method from valueMap
+                ));
+            }
+        }
+    }
+
+    // POJO for multifield items
+    public static class FragmentInfoItem {
+        // declare fields looks like 
+        private String fieldname1;
+        private String fieldname2;
+        and so on
+
+        public FragmentInfoItem(String fieldname1, String fieldname2 ,...) {
+            this.fieldname1 = fieldname1;
+            this.fieldname2 = fieldname2;
+            and so on 
+        }
+
+        public String getFieldName1() {
+            return fieldname1;
+        }
+
+        public Boolean getFieldName2() {
+            return fieldname2;
+        }
+    }
+
+Multifield with min and max - Resource Type - granite/ui/components/coral/foundation/form/multifield
+----------------------------------------------------------------------------------------------------
+<comapreXFPathSelection
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+    composite="{Boolean}true"
+    fieldLabel="Compare XF:"
+    validation="multifield-min-max">
+    <granite:data
+        jcr:primaryType="nt:unstructured"
+        max="6"
+        min="2"/>
+    <field
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        name="./fragmentInfo">
+        <items jcr:primaryType="nt:unstructured">
+            <fragmentPath
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                fieldLabel="Compare XF Path:"
+                name="./fragmentPath"
+                required="{Boolean}true"
+                rootPath="/content/experience-fragments/compare"/>
+            <highlightColumn
+                jcr:primaryType="nt:unstructured"
+                granite:class="highlight-column-checkbox"
+                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                text="Highlight column:"
+                value="{Boolean}true"
+                uncheckedValue="{Boolean}false"
+                fieldDescription="This will highlight the label of the selected XF in the table."
+                name="./highlightColumn"/>
+        </items>
+    </field>
+</comapreXFPathSelection>
+
+Java Reference:
+---------------
+    @ChildResource(name = "fragmentInfo")
+    private Resource fragmentInfoContainer;
+
+    private final List<FragmentInfoItem> fragmentItems = new ArrayList<>();
+
+    @PostConstruct
+    protected void init() {
+        // Build composite multifield items
+        if (fragmentInfoContainer != null) {
+            for (Resource item : fragmentInfoContainer.getChildren()) {
+                ValueMap vm = item.getValueMap();
+                fragmentItems.add(new FragmentInfoItem(
+                        //add fields to class by using vm.get method from valueMap
+                ));
+            }
+        }
+    }
+
+    // POJO for multifield items
+    public static class FragmentInfoItem {
+        // declare fields looks like 
+        private String fieldname1;
+        private String fieldname2;
+        and so on
+
+        public FragmentInfoItem(String fieldname1, String fieldname2 ,...) {
+            this.fieldname1 = fieldname1;
+            this.fieldname2 = fieldname2;
+            and so on 
+        }
+
+        public String getFieldName1() {
+            return fieldname1;
+        }
+
+        public Boolean getFieldName2() {
+            return fieldname2;
+        }
+    }

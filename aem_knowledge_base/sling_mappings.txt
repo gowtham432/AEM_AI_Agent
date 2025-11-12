@@ -1,0 +1,190 @@
+package com.usaa.aem.core.models;
+
+import com.adobe.cq.export.json.ComponentExporter;
+import com.adobe.cq.export.json.ExporterConstants;
+import com.adobe.cq.dam.cfm.ContentFragment;
+import com.adobe.cq.dam.cfm.ContentElement;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.models.annotations.Exporter;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorsspecific.ValueMapValue;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
+import java.util.Optional;
+
+import static org.apache.sling.models.annotations.DefaultInjectionStrategy.OPTIONAL;
+
+@Model(
+        adaptables = {SlingHttpServletRequest.class, Resource.class},
+        adapters = {ExampleComponent.class, ComponentExporter.class},
+        resourceType = ExampleComponent.RESOURCE_TYPE,
+        defaultInjectionStrategy = OPTIONAL
+)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+public class ExampleComponent implements ComponentExporter {
+
+    public static final String RESOURCE_TYPE = "usaa-cms-component-library/components/content/example_component";
+
+    // Infrastructure
+    @SlingObject
+    private Resource resource;
+
+    @SlingObject
+    private ResourceResolver resourceResolver;
+
+    private PageManager pageManager;
+    private Page currentPage;
+    private String id;
+
+    // Authoring fields
+    @ValueMapValue
+    private String viewType;
+
+    @ValueMapValue
+    private String[] tags;
+
+    @ValueMapValue
+    private Calendar date;
+
+    @ValueMapValue
+    private String headline;
+
+    @ChildResource(name = "fragmentInfo")
+    private Resource fragmentInfoContainer;
+
+    private final List<FragmentInfoItem> fragmentItems = new ArrayList<>();
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public ResourceResolver getResourceResolver() {
+        return resourceResolver;
+    }
+
+    public PageManager getPageManager() {
+        if (pageManager == null && resourceResolver != null) {
+            pageManager = resourceResolver.adaptTo(PageManager.class);
+        }
+        return pageManager;
+    }
+
+    public Page getCurrentPage() {
+        if (currentPage == null) {
+            currentPage = Optional.ofNullable(getPageManager())
+                    .map(pm -> pm.getContainingPage(resource))
+                    .orElse(null);
+        }
+        return currentPage;
+    }
+
+    public String getId() {
+        if (id == null && resource != null) {
+            id = resource.getValueMap().get("id", String.class);
+            if (id == null) {
+                String parentName = Optional.ofNullable(resource.getParent()).map(Resource::getName).orElse("");
+                id = (StringUtils.isNotEmpty(parentName) ? parentName + "--" : "")
+                        + resource.getName() + "__" + Math.abs(resource.getPath().hashCode());
+            }
+        }
+        return id;
+    }
+
+    public String getViewType() {
+        return viewType;
+    }
+
+    public String[] getTags() {
+        return tags != null ? tags : new String[0];
+    }
+
+    public Calendar getDate() {
+        return date;
+    }
+
+    public String getHeadline() {
+        return headline;
+    }
+
+    public List<FragmentInfoItem> getFragmentItems() {
+        return fragmentItems;
+    }
+
+    @Override
+    public String getExportedType() {
+        return RESOURCE_TYPE;
+    }
+
+    public Map<String, Object> createCfMapFromPath(String fragmentPath, SlingHttpServletRequest request,
+                                                   Resource resource, Page currentPage, boolean modalFlag) {
+
+        Map<String, Object> elementMap = new HashMap<>();
+        if (StringUtils.isBlank(fragmentPath) || resource == null) {
+            return Collections.emptyMap();
+        }
+
+        ResourceResolver resolver = resource.getResourceResolver();
+        Resource fragmentResource = resolver != null ? resolver.getResource(fragmentPath) : null;
+
+        if (fragmentResource == null) {
+            return Collections.emptyMap();
+        }
+
+        ContentFragment contentFragment = fragmentResource.adaptTo(ContentFragment.class);
+        if (contentFragment == null) {
+            return Collections.emptyMap();
+        }
+
+        Iterator<ContentElement> elements = contentFragment.getElements();
+        while (elements.hasNext()) {
+            ContentElement element = elements.next();
+            if (element != null) {
+                elementMap.put(element.getName(), element.getContent());
+            }
+        }
+
+        return elementMap;
+    }
+
+    @PostConstruct
+    protected void init() {
+        // Build composite multifield items example based on fields change the Retrieval from JCR
+        if (fragmentInfoContainer != null) {
+            for (Resource item : fragmentInfoContainer.getChildren()) {
+                ValueMap vm = item.getValueMap();
+                fragmentItems.add(new FragmentInfoItem(
+                    vm.get("fragmentPath", StringUtils.EMPTY),
+                    vm.get("highlightColumn", Boolean.FALSE)
+                ));
+            }
+        }
+    }
+    
+    // POJO for multifield items example, need to change according to fields added in multifield
+    public static class FragmentInfoItem {
+        private final String fragmentPath;
+        private final Boolean highlightColumn;
+
+        public FragmentInfoItem(String fragmentPath, Boolean highlightColumn) {
+            this.fragmentPath = fragmentPath;
+            this.highlightColumn = highlightColumn;
+        }
+
+        public String getFragmentPath() {
+            return fragmentPath;
+        }
+
+        public Boolean getHighlightColumn() {
+            return highlightColumn;
+        }
+    }
+}

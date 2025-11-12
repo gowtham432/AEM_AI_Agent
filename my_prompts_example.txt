@@ -1,0 +1,50 @@
+For dropdown field add India, Mexico and USA
+For multifield add field of type path and name as Select a path and root Path as /content/dam/content-fragments
+For color field add red, blue, black, white, green, yellow and violet
+
+add text field, number field and path field with name as fragment path and root path to be starting at /content/dam/fragments in multifield items with min as 4 and max as 6 and write a JS validation
+For dropdown field add India, Mexico and USA
+For color field add red, blue, black, white, green, yellow and violet
+
+For multifield items add text field, number field and path field with name as fragment path and root path to be starting at /content/dam/fragments with min as 4 and max as 6 and write a JS validation
+For dropdown field add India, Mexico and USA
+For color field add red, blue, black, white, green, yellow and violet
+For Path field add root path starting at /content/dam
+
+For multifield items add text field, number field and path field with name as fragment path and root path to be starting at /content/dam/fragments with min as 4 and max as 6 and write a JS validation
+Add multifield items to a seperate tab
+For dropdown field add India, Mexico and USA
+For color field add red, blue, black, white, green, yellow and violet
+For Path field add root path starting at /content/dam
+
+
+For multifield item added from the dropdown add text, number and path fields with path field rootPath initialised to /content/dam/content-fragments.
+For multifield item added from the dropdown add text, number and path fields with path field rootPath initialized to /content/dam/content-fragments. Add this particular multifield item in separate tab in authoring dialog.
+For color field add red, blue, black, white, green, yellow and violet.
+For Fragment Path field added from dropdown options add rootPath starting at /content/dam.
+For dropdown field added from dropdown add India, Mexico and USA as options.
+
+
+Fields added
+------------
+🧩 Text Field — Label: Text Field, Name: text
+🧩 Drop down Field (Select) — Label: Select Country, Name: country
+🧩 Multifield — Label: Add Items, Name: items
+🧩 Color Field — Label: Select a color, Name: color
+
+Context 1
+---------
+For multifield item added from the dropdown add text, number and path fields with path field rootPath initialised to /content/dam/content-fragments.
+For dropdown field added from dropdown add India, Mexico and USA as options.
+For color field add red, blue, black, white, green, yellow and violet.
+
+Context 2
+---------
+For multifield item added from the dropdown add text, number and path fields with path field rootPath initialised to /content/dam/content-fragments. Add this multifield item to separate tab in authoring dialog.
+For dropdown field added from dropdown add India, Mexico and USA as options.
+For color field add red, blue, black, white, green, yellow and violet.
+
+For multifield item added from the dropdown add text, number and path fields with path field rootPath initialised to /content/dam/content-fragments.
+For dropdown field added from dropdown add India, Mexico and USA as options.
+For color field add red, blue, black, white, green, yellow and violet.
+For path field with name pathfield add /content/dam
