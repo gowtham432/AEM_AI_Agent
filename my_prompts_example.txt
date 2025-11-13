@@ -48,3 +48,9 @@ For multifield item added from the dropdown add text, number and path fields wit
 For dropdown field added from dropdown add India, Mexico and USA as options.
 For color field add red, blue, black, white, green, yellow and violet.
 For path field with name pathfield add /content/dam
+
+For multifield item added from the dropdown add text, number with min as 5 and max as 10 and path fields with path field rootPath initialised to /content/dam/content-fragments. Add this multifield in a separate tab with tab name as Items.
+For dropdown field added from dropdown add India, Mexico and USA as options.
+For color field add red, blue, black, white, green, yellow and violet.
+For path field with name path add rootPath as  /content/dam
+Add Select email with name as email and Path Field with name as path in another tab with name as Additional Details
